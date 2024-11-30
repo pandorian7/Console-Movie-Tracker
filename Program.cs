@@ -1,2 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using MovieTracker;
+
+string fp = "movie_metadata.txt";
+
+var l = new Loader(fp);
+
+l.Read();
+
