@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\pandorian\\.nuget\\packages\\": {}
+    "C:\\Users\\Dasun Deshaja\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pandorian\\Projects\\Movie Tracker\\Movie Tracker.csproj",
+      "projectUniqueName": "C:\\Users\\Dasun Deshaja\\Documents\\DSA Project\\Console-Movie-Tracker\\Movie Tracker.csproj",
       "projectName": "Movie Tracker",
-      "projectPath": "C:\\Users\\pandorian\\Projects\\Movie Tracker\\Movie Tracker.csproj",
-      "packagesPath": "C:\\Users\\pandorian\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pandorian\\Projects\\Movie Tracker\\obj\\",
+      "projectPath": "C:\\Users\\Dasun Deshaja\\Documents\\DSA Project\\Console-Movie-Tracker\\Movie Tracker.csproj",
+      "packagesPath": "C:\\Users\\Dasun Deshaja\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Dasun Deshaja\\Documents\\DSA Project\\Console-Movie-Tracker\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pandorian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Dasun Deshaja\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -66,7 +66,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
