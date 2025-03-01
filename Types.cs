@@ -62,3 +62,14 @@ class Genre
         return $"Genre(id={Id}, name={Name})";
     }
 }
+
+class SortingAlgorithm<T1, T2> where T2 : IComparable<T2> {
+    public string Name { get; private set; }
+    public Action<DSA.DynamicArray<T1>, Func<T1, T2>> Sort { get; private set; }
+
+    public SortingAlgorithm(string name, Action<DSA.DynamicArray<T1>, Func<T1, T2>> sort)
+    {
+        Name = name;
+        Sort = sort;
+    }
+}
