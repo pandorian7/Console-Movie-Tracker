@@ -9,8 +9,9 @@ class Movie
     public string Title { get; private set; }
     double? Runtime;
     double? Rating;
+    int ReleaseYear;
     
-    public Movie(string id, string title, List<int> genres, string overview, double? runtime, double? rating, string? imdb)
+    public Movie(string id, string title, List<int> genres, string overview, int release, double? runtime, double? rating, string? imdb)
     {
         Id = id;
         Title = title;
@@ -19,6 +20,7 @@ class Movie
         Runtime = runtime;
         Rating = rating;
         IMBb = imdb;
+        ReleaseYear = release;
     }
 }
 
