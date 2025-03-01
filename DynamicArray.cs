@@ -18,6 +18,13 @@ public class DynamicArray<T>
         Count = 0;
     }
 
+    public DynamicArray(int size)
+    {
+        this.size = size;
+        Items = new T[size];
+        Count = 0;
+    }
+
 
     private void Expand()
     {
