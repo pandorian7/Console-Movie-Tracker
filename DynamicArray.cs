@@ -1,9 +1,9 @@
-namespace DynamicArray;
+namespace DSA;
 
 public class DynamicArray<T>
 {
     private T[] Items { get; set; } = Array.Empty<T>();
-    private int Count { get; set; } = 0;
+    public int Count { get; private set; } = 0;
 
     private  int size;
 
@@ -15,15 +15,7 @@ public class DynamicArray<T>
         Count = 0;
     }
 
-    public void Print()
-    {
-        for (int i = 0; i < Count; i++)
-        {
-            Console.WriteLine(Items[i]);
-        }
-    }
-
-    private void expand()
+    private void Expand()
     {
         size *= 2;
         T[] temp = new T[size];
@@ -34,7 +26,7 @@ public class DynamicArray<T>
         Items = temp;
     }
 
-    private void shrink()
+    private void Shrink()
     {
         size /= 2;
         T[] temp = new T[size];
@@ -51,7 +43,7 @@ public class DynamicArray<T>
         Count++;
         if (Count == size)
         {
-            expand();
+            Expand();
         }
     }
 
@@ -73,7 +65,7 @@ public class DynamicArray<T>
         
         if (Count == size)
         {
-            expand();
+            Expand();
         }
     }
     
@@ -92,7 +84,7 @@ public class DynamicArray<T>
         Count--;
         if (Count <= size / 4)
         {
-            shrink();
+            Shrink();
         }
     }
 
@@ -101,13 +93,19 @@ public class DynamicArray<T>
         Count--;
         if (Count <= size / 4)
         {
-            shrink();
+            Shrink();
         }
     }
 
-    
+    public T At(int index)
+    {
+        if (index < 0 || index >= Count)
+        {
+            throw new IndexOutOfRangeException();
+        }
 
-
+        return Items[index];
+    }
 
 }
 

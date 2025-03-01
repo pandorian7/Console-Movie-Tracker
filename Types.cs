@@ -1,0 +1,40 @@
+namespace MovieTracker;
+
+class Movie
+{
+    public List<int> Genres;
+    string Id;
+    string? IMBb;
+    string? Overview;
+    string Title;
+    double? Runtime;
+    double? Rating;
+    
+    public Movie(string id, string title, List<int> genres, string overview, double? runtime, double? rating, string? imdb)
+    {
+        Id = id;
+        Title = title;
+        Genres = genres;
+        Overview = overview;
+        Runtime = runtime;
+        Rating = rating;
+        IMBb = imdb;
+    }
+}
+
+class Genre 
+{
+    int Id;
+    string Name;
+
+    public Genre(int id, string name)
+    {
+        Id = id;
+        Name = name;
+    }
+
+    public override string ToString()
+    {
+        return $"Genre(id={Id}, name={Name})";
+    }
+}

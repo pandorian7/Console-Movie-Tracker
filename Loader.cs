@@ -1,24 +1,15 @@
 namespace MovieTracker;
 
-class Movie
-{
-    List<int>? Genres;
-    string? Id;
-    string? IMBb;
-    string? Overview;
-    string? Title;
-    double? Runtime;
-    double? Rating;
-
-}
-
 class Loader(string fp)
 {
     public string FilePath = fp;
     public List<int> GenreIds = [];
 
     public List<string> GenreNames = [];
-    public List<Movie> Movies = [];
+
+    
+    public DSA.DynamicArray<Movie> Movies = new();
+    public DSA.DynamicArray<Genre> Genres = new();
 
     public void Read()
     {
@@ -27,9 +18,18 @@ class Loader(string fp)
         StreamReader sr = new(FilePath);
 
         tmp = sr.ReadLine();
-        if (tmp is not null)
+
+        if (tmp != "genres start") {
+            throw new Exception("Invalid file format");
+        }
+        int genre_id;
+        string genre_name;
+        while ((tmp = sr.ReadLine()) != "genres end")
         {
-            Console.Write(tmp);
+            genre_id = Convert.ToInt32(tmp);
+            genre_name = sr.ReadLine()!;
+            Genres.AddLast(new Genre(genre_id, genre_name));
+            Console.WriteLine(new Genre(genre_id, genre_name));
         }
 
         sr.Close();
