@@ -29,9 +29,41 @@ class Loader(string fp)
             genre_id = Convert.ToInt32(tmp);
             genre_name = sr.ReadLine()!;
             Genres.AddLast(new Genre(genre_id, genre_name));
-            Console.WriteLine(new Genre(genre_id, genre_name));
         }
 
+        tmp = sr.ReadLine();
+
+        if (tmp != "movies start") {
+            throw new Exception("Invalid file format");
+        }
+
+        int movie_id;
+        string movie_title;
+        List<int> movie_genres;
+        string movie_overview;
+        double? movie_runtime;
+        double? movie_rating;
+        string? movie_imdb;
+        int movie_release;
+
+        while ((tmp = sr.ReadLine()) != "movies end")
+        {
+            if (tmp != "") {
+                movie_genres = tmp!.Split(' ').Select(x => Convert.ToInt32(x)).ToList();
+            } else {
+                movie_genres = [];
+            }
+            movie_id = Convert.ToInt32(sr.ReadLine());
+            movie_imdb = sr.ReadLine();
+            movie_overview = sr.ReadLine()!;
+            movie_title = sr.ReadLine()!;
+            movie_runtime = Convert.ToDouble(sr.ReadLine());
+            movie_rating = Convert.ToDouble(sr.ReadLine());
+            tmp = sr.ReadLine();
+            movie_release = int.TryParse(tmp, out int result_release) ? result_release : 1990;
+            Movies.AddLast(new Movie(movie_id, movie_title, movie_genres, movie_overview, movie_release, movie_runtime, movie_rating, movie_imdb));
+            
+        }
         sr.Close();
     }
 }

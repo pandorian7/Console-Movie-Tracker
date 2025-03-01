@@ -3,7 +3,7 @@ namespace MovieTracker;
 class Movie
 {
     public List<int> Genres;
-    string Id;
+    int Id;
     string? IMBb;
     string? Overview;
     public string Title { get; private set; }
@@ -11,7 +11,7 @@ class Movie
     double? Rating;
     int ReleaseYear;
     
-    public Movie(string id, string title, List<int> genres, string overview, int release, double? runtime, double? rating, string? imdb)
+    public Movie(int id, string title, List<int> genres, string overview, int release, double? runtime, double? rating, string? imdb)
     {
         Id = id;
         Title = title;
@@ -38,5 +38,16 @@ class Genre
     public override string ToString()
     {
         return $"Genre(id={Id}, name={Name})";
+    }
+}
+
+class MovieStore {
+    public DSA.DynamicArray<Movie> Movies { get; private set; }
+    public DSA.DynamicArray<Genre> Genres { get; private set; }
+
+    public MovieStore(DSA.DynamicArray<Movie> movies, DSA.DynamicArray<Genre> genres)
+    {
+        Movies = movies;
+        Genres = genres;
     }
 }
