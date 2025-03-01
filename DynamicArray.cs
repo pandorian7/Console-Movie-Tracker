@@ -1,7 +1,10 @@
+using System.Diagnostics.Contracts;
+
 namespace DSA;
 
 public class DynamicArray<T>
 {
+
     private T[] Items { get; set; } = Array.Empty<T>();
     public int Count { get; private set; } = 0;
 
@@ -14,6 +17,7 @@ public class DynamicArray<T>
         Items = new T[size];
         Count = 0;
     }
+
 
     private void Expand()
     {
@@ -107,5 +111,14 @@ public class DynamicArray<T>
         return Items[index];
     }
 
+    public void Set(int index, T item)
+    {
+        if (index < 0 || index >= Count)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        Items[index] = item;
+    }
 }
 

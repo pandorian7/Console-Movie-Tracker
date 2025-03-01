@@ -6,7 +6,7 @@ class Movie
     string Id;
     string? IMBb;
     string? Overview;
-    string Title;
+    public string Title { get; private set; }
     double? Runtime;
     double? Rating;
     
