@@ -1,6 +1,6 @@
-﻿using DSA;
-using MovieTracker;
+﻿using MovieTracker;
 
 CLI cli = new();
 
 cli.Init();
+cli.Run();

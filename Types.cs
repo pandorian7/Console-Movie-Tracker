@@ -7,6 +7,7 @@ class Movie
     public string? IMBb { get; private set; }
     public string? Overview { get; private set; }
     public string Title { get; private set; }
+    public string CleanTitle {get; private set;}
     public double? Runtime { get; private set; }
     public double? Rating { get; private set; }
     public int ReleaseYear { get; private set; }
@@ -36,6 +37,8 @@ class Movie
         Rating = rating;
         IMBb = imdb;
         ReleaseYear = release;
+
+        CleanTitle = Utils.Clean(title);
     }
 }
 

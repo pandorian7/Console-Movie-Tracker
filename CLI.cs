@@ -48,25 +48,26 @@ class CLI {
         Console.Write(" >> ");
         return Console.ReadLine();
     }
-    public static void ParseCommand(string command) {
+    public void ExecuteCommand(string command) {
         var res = command.Trim().Split(" ");
         if (res.Length == 1 && res[0] == "") {
-            Console.WriteLine("emtpy");
             return;
         }
         switch (res[0]) {
             case "help":
-                Console.WriteLine("help");
+                PrintHelp();
                 break;
             case "res":
-                Console.WriteLine("results");
+                Tracker.ShowResults();
                 break;
             case "search":
                 CLI.CheckNthArg(res, 1, "No search parameter provided");
                 switch(res[1]){
                     case "title":
                         CLI.CheckNthArg(res, 2, "No title provided");
-                        Console.WriteLine($"searching by title {CLI.MergeFrom(res, 2)}");
+                        Tracker.Res = Tracker.Search(CLI.MergeFrom(res, 2));
+                        Tracker.ShowResults();
+                        // Console.WriteLine($"searching by title {Utils.Clean(CLI.MergeFrom(res, 2))}");
                         break;
                     case "year":
                         CLI.CheckNthArg(res, 2, "No year provided");
@@ -82,10 +83,27 @@ class CLI {
                         break;
                     
                     default:
-                        Console.WriteLine("Invalid search parameter");
-                        break;
+                        throw new Exception("Invalid search parameter");
                 }
                 break;
+            default:
+                throw new Exception($"Invalid command: {command}");
+        }
+    }
+
+    public void Run() {
+        string? command;
+        while (true) {
+            command = ReadUserCommand();
+            if (command == null) {
+                continue;
+            }
+            try {
+                ExecuteCommand(command);
+            } catch (Exception e) {
+                Console.WriteLine($"Error: {e.Message}");
+            }
+
         }
     }
 
