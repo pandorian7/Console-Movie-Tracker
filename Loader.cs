@@ -3,15 +3,11 @@ namespace MovieTracker;
 class Loader(string fp)
 {
     public string FilePath = fp;
-    public List<int> GenreIds = [];
-
-    public List<string> GenreNames = [];
-
-    
+ 
     public DSA.DynamicArray<Movie> Movies = new();
     public DSA.DynamicArray<Genre> Genres = new();
 
-    public void Read()
+    public MovieStore Read()
     {
         string? tmp;
 
@@ -40,6 +36,7 @@ class Loader(string fp)
         int movie_id;
         string movie_title;
         List<int> movie_genres;
+        DSA.DynamicArray<Genre> movie_genres_parsed;
         string movie_overview;
         double? movie_runtime;
         double? movie_rating;
@@ -61,9 +58,17 @@ class Loader(string fp)
             movie_rating = Convert.ToDouble(sr.ReadLine());
             tmp = sr.ReadLine();
             movie_release = int.TryParse(tmp, out int result_release) ? result_release : 1990;
-            Movies.AddLast(new Movie(movie_id, movie_title, movie_genres, movie_overview, movie_release, movie_runtime, movie_rating, movie_imdb));
+            movie_genres_parsed = new();
+            for (int i=0; i<movie_genres.Count; i++)
+            {
+                movie_genres_parsed.AddLast(Genres.Find(movie_genres[i], g=>g.Id)!);
+            }
+            Movies.AddLast(new Movie(movie_id, movie_title, movie_genres_parsed, movie_overview, movie_release, movie_runtime, movie_rating, movie_imdb));
             
         }
         sr.Close();
+
+        MovieStore store = new(Movies, Genres);
+        return store;
     }
 }

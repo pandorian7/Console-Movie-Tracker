@@ -4,9 +4,8 @@ string fp = "movie_metadata.txt";
 
 var l = new Loader(fp);
 
-l.Read();
+var store = l.Read();
 
+var m = store.Movies.Find("Avatar", m=>m.Title);
 
-DSA.InsertionSort.Sort<Movie, string>(l.Movies, m => m.Title);
-Console.WriteLine(l.Movies.At(0).Title);
-Console.WriteLine(l.Movies.At(1).Title);
+Console.WriteLine(m);
