@@ -1,0 +1,12 @@
+Search Movies with Title, Release Year, Genre or IMDb id
+
+  search [by] [text]
+    by { title year genre imdb}
+
+View the results of last search or filter action
+  
+  res
+
+Print this Help Menu
+    
+    help
