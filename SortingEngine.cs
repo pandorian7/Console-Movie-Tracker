@@ -3,10 +3,10 @@ using MovieTracker;
 
 namespace DSA;
 
-class SortingEngine<T1, T2> where T2 : IComparable<T2> {
+class SortingEngine {
 
     
-    private DynamicArray<SortingAlgorithm<T1, T2>> Algorithms;
+    private DynamicArray<ISortingAlgorithm> Algorithms;
     public bool Informative { get; set; } = true;
 
     private Stopwatch? Watch { get; set; }
@@ -14,22 +14,31 @@ class SortingEngine<T1, T2> where T2 : IComparable<T2> {
 
     public SortingEngine() {
         Algorithms = new ();
-        Algorithms.AddLast(new SortingAlgorithm<T1, T2>("Bubble Sort", BubbleSort.Sort));
-        Algorithms.AddLast(new SortingAlgorithm<T1, T2>("Insertion Sort", InsertionSort.Sort));
-        Algorithms.AddLast(new SortingAlgorithm<T1, T2>("Selection Sort", SelectionSort.Sort));
+        Algorithms.AddLast(new InsertionSort());
+        Algorithms.AddLast(new SelectionSort());
+        Algorithms.AddLast(new BubbleSort());
 
     }
-    private SortingAlgorithm<T1, T2> RandomSortingAlgorithem() {
+    private ISortingAlgorithm RandomSortingAlgorithem() {
         int index = Random.Shared.Next(0, Algorithms.Count);
         return Algorithms.At(index);
     }
 
-    public void Sort(DynamicArray<T1> arr, Func<T1, T2> key) {
+    public void Sort<T>(DynamicArray<T> arr, Func<T, IComparable> key) {
         var algo = RandomSortingAlgorithem();
         ItemsSorted = arr.Count;
+
+        if (Informative) {
+            Console.WriteLine($"Sorting {ItemsSorted} items using {algo.Name}");
+        }
+
         Watch = new();
         Watch.Start();
         algo.Sort(arr, key);
         Watch.Stop();
+
+        if (Informative) {
+            Console.WriteLine($"Sorted {ItemsSorted} items in {Watch.ElapsedMilliseconds}ms");
+        }
     }
 }

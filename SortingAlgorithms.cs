@@ -2,13 +2,20 @@ using System;
 
 namespace DSA;
 
-public class InsertionSort
+
+public interface ISortingAlgorithm
 {
-    public static void Sort<T1, T2>(DynamicArray<T1> arr , Func<T1, T2> key) where T2 : IComparable<T2>
+    string Name { get; }
+    void Sort<T>(DynamicArray<T> arr , Func<T, IComparable> key);
+}
+public class InsertionSort : ISortingAlgorithm
+{
+    public string Name {get;} = "Insertion Sort";
+    public void Sort<T>(DynamicArray<T> arr , Func<T, IComparable> key)
     {
         for(int i=1; i<arr.Count; i++)
         {
-            T1 element = arr.At(i);
+            T element = arr.At(i);
             int j = i - 1;
             while(j >= 0 && key(element).CompareTo(key(arr.At(j))) < 0)
             {
@@ -21,9 +28,10 @@ public class InsertionSort
 }
 
 
-public class SelectionSort
+public class SelectionSort: ISortingAlgorithm
 {
-    public static void Sort<T1, T2>(DynamicArray<T1> arr , Func<T1, T2> key) where T2 : IComparable<T2>
+    public string Name {get;} = "Selection Sort";
+    public void Sort<T>(DynamicArray<T> arr , Func<T, IComparable> key)
     {
         for(int i=0; i<arr.Count; i++)
         {
@@ -35,22 +43,23 @@ public class SelectionSort
                     minIndex = j;
                 }
             }
-            T1 temp = arr.At(i);
+            T temp = arr.At(i);
             arr.Set(i, arr.At(minIndex));
             arr.Set(minIndex, temp);
         }
     }
 }
 
-public class BubbleSort {
-    public static void Sort<T1, T2>(DynamicArray<T1> arr, Func<T1, T2> key) where T2 : IComparable<T2> {
+public class BubbleSort: ISortingAlgorithm {
+    public string Name {get;} = "Bubble Sort";
+    public void Sort<T>(DynamicArray<T> arr , Func<T, IComparable> key) {
         int n = arr.Count;
         bool swapped;
         for (int i = 0; i < n - 1; i++) {
             swapped = false;
             for (int j = 0; j < n - i - 1; j++) {
                 if (key(arr.At(j)).CompareTo(key(arr.At(j+1))) > 0) {
-                    T1 temp = arr.At(j);
+                    T temp = arr.At(j);
                     arr.Set(j,arr.At(j + 1));
                     arr.Set(j + 1, temp);
                     swapped = true;

@@ -104,6 +104,27 @@ class CLI {
                         throw new Exception("Invalid search parameter");
                 }
                 break;
+
+            case "sort":
+                CLI.CheckNthArg(res, 1, "No sort parameter provided");
+                switch(res[1]) {
+                    case "title":
+                        Tracker.Sorting.Sort(Tracker.Res, x => x.Title);
+                        Tracker.ShowResults();
+                        break;
+                    case "year":
+                        Tracker.Sorting.Sort(Tracker.Res, x => x.ReleaseYear);
+                        Tracker.ShowResults();
+                        break;
+                    case "rating":
+                        Tracker.Sorting.Sort(Tracker.Res, x => x.Rating ?? 0);
+                        Tracker.ShowResults();
+                        break;
+                    default:
+                        throw new Exception("Invalid search parameter");
+                }
+                break;
+                
             default:
                 throw new Exception($"Invalid command: {command}");
         }

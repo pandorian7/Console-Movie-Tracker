@@ -7,8 +7,11 @@ class MovieTracker{
     public MovieStore? Store { get; private set; }
     public DSA.DynamicArray<Movie> Res { get; set; }
 
+    public SortingEngine Sorting;
+
     public MovieTracker() {
         Res = new();
+        Sorting = new();
     }
 
     public void LoadStore() {
