@@ -31,7 +31,11 @@ class CLI {
     public void Init() {
         PrintWelcome();
         Tracker.LoadStore();
-        PrintHelp();
+        Console.WriteLine();
+        Console.WriteLine("ex: search title the matrix");
+        Console.WriteLine("\"help\" for more detail help");
+        Console.WriteLine();
+
     }
 
     private static string MergeFrom(string[] args, int start) {
@@ -67,19 +71,33 @@ class CLI {
                         CLI.CheckNthArg(res, 2, "No title provided");
                         Tracker.Res = Tracker.Search(CLI.MergeFrom(res, 2));
                         Tracker.ShowResults();
-                        // Console.WriteLine($"searching by title {Utils.Clean(CLI.MergeFrom(res, 2))}");
                         break;
                     case "year":
                         CLI.CheckNthArg(res, 2, "No year provided");
-                        Console.WriteLine($"searching by year {res[2]}");
+                        Tracker.Res = Tracker.Store!.Movies.Filter(x => x.ReleaseYear == Convert.ToInt32(res[2]));
+                        Tracker.ShowResults();
                         break;
                     case "genre":
                         CLI.CheckNthArg(res, 2, "No genre provided");
-                        Console.WriteLine($"searching by genre {res[2]}");
+                        Tracker.Res = Tracker.Store!.Movies.Filter(m => {
+                            var matching_genres = Tracker.Store!.GetMatchingGenres(CLI.MergeFrom(res, 2));
+                            for (int i=0; i<m.Genres.Count; i++) {
+                                if (matching_genres.Contains(m.Genres.At(i))) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        });
+                        Tracker.ShowResults();
                         break;
                     case "imdb":
-                        CLI.CheckNthArg(res, 2, "No rating provided");
-                        Console.WriteLine($"searching by rating {res[2]}");
+                        CLI.CheckNthArg(res, 2, "No imdb id provided");
+                        Tracker.Res = new();
+                        var m = Tracker.Store!.Movies.Find(res[2], x => x.IMDb);
+                        if (m != null) {
+                            Tracker.Res.AddLast(m);
+                        }
+                        Tracker.ShowResults();
                         break;
                     
                     default:

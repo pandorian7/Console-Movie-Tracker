@@ -4,7 +4,7 @@ class Movie
 {
     public DSA.DynamicArray<Genre> Genres;
     public int Id { get; private set; }
-    public string? IMBb { get; private set; }
+    public string? IMDb { get; private set; }
     public string? Overview { get; private set; }
     public string Title { get; private set; }
     public string CleanTitle {get; private set;}
@@ -22,7 +22,7 @@ class Movie
         ret += $"ReleaseYear={ReleaseYear}, ";
         ret += "Runtime=" + (Runtime?.ToString() ?? "null") + ", ";
         ret += "Rating=" + (Rating?.ToString() ?? "null") + ", ";
-        ret += "IMBb=" + (IMBb ?? "null");
+        ret += "IMBb=" + (IMDb ?? "null");
 
         return $"Movie({ret})";
     }
@@ -35,7 +35,7 @@ class Movie
         Overview = overview;
         Runtime = runtime;
         Rating = rating;
-        IMBb = imdb;
+        IMDb = imdb;
         ReleaseYear = release;
 
         CleanTitle = Utils.Clean(title);
@@ -47,25 +47,18 @@ class Genre
     public int Id { get; private set; }
     public string Name { get; private set; }
 
+    public string CleanName { get; private set; }
+
     public Genre(int id, string name)
     {
         Id = id;
         Name = name;
+        CleanName = Utils.Clean(name);
+
     }
 
     public override string ToString()
     {
         return $"Genre(id={Id}, name={Name})";
-    }
-}
-
-class MovieStore {
-    public DSA.DynamicArray<Movie> Movies { get; private set; }
-    public DSA.DynamicArray<Genre> Genres { get; private set; }
-
-    public MovieStore(DSA.DynamicArray<Movie> movies, DSA.DynamicArray<Genre> genres)
-    {
-        Movies = movies;
-        Genres = genres;
     }
 }

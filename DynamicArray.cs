@@ -146,6 +146,34 @@ public class DynamicArray<T>
         return default(T);
     }
 
+    public bool Contains(T value) {
+        for (int i = 0; i < Count; i++) {
+            if (Items[i]!.Equals(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool Contains(Func<T, bool> comp) {
+        for (int i = 0; i < Count; i++) {
+            if (comp(Items[i]!)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public DynamicArray<T> Filter(Func<T, bool> key) {
+        DSA.DynamicArray<T> ret = new();
+        for (int i = 0; i < Count; i++) {
+            if (key(Items[i]!)) {
+                ret.AddLast(Items[i]!);
+            }
+        }
+        return ret;
+    }
+
     public override string ToString()
     {
         string ret = "";

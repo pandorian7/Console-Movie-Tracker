@@ -16,7 +16,7 @@ class MovieTracker{
         Store = loader.Read();
         Console.Write($"\r{Store.Movies.Count} movies loaded.");
         Thread.Sleep(2000);
-        Console.Write("\r");
+        Console.Write("\r\n");
     }
 
     public void ShowResults() {
