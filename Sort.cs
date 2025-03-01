@@ -44,49 +44,52 @@ public class SelectionSort
 }
 
 
-// public class MergeSort 
+// public class MergeSort
 // {
-//     public static void Sort<T1, T2>(DynamicArray<T1> arr ,Func<T1, T2> key) where T2 : IComparable<T2>
+//     public static void Sort<T, K>(DynamicArray<T> arr, Func<T, K> key) where K : IComparable<K>
 //     {
-//         // implement merge sort
+//         if (arr.Count > 1)
+//         {
+//             Sort(arr, 0, arr.Count - 1, key);
+//         }
 //     }
 
-//     public static void Merge<T1, T2>(DynamicArray<T1> arr ,Func<T1, T2> key) where T2 : IComparable<T2>
+//     private static void Sort<T, K>(DynamicArray<T> arr, int left, int right, Func<T, K> key) where K : IComparable<K>
 //     {
-//         int mid = arr.Count / 2;
-//         int leftSize = mid;
-//         int rightSize = arr.Count - mid;
+//         if (left >= right) return;
 
-//         // create two sub-arrays
-//         DynamicArray<T1> left = new DynamicArray<T1>(leftSize);
-//         DynamicArray<T1> right = new DynamicArray<T1>(rightSize);
+//         int mid = (left + right) / 2;
+//         Sort(arr, left, mid, key);
+//         Sort(arr, mid + 1, right, key);
+//         Merge(arr, left, mid, right, key);
+//     }
 
-//         // copy elements from arr to left and right
-//         for (int i = 0; i < leftSize; i++)
+//     private static void Merge<T, K>(DynamicArray<T> arr, int left, int mid, int right, Func<T, K> key) where K : IComparable<K>
+//     {
+//         int leftSize = mid - left + 1;
+//         int rightSize = right - mid;
+
+//         var leftArr = new DynamicArray<T>(leftSize);
+//         var rightArr = new DynamicArray<T>(rightSize);
+
+//         for (int i = 0; i < leftSize; i++) leftArr.Set(i, arr.At(left + i));
+//         for (int j = 0; j < rightSize; j++) rightArr.Set(j, arr.At(mid + 1 + j));
+
+//         int iLeft = 0, iRight = 0, k = left;
+
+//         while (iLeft < leftSize && iRight < rightSize)
 //         {
-//             left.AddLast(arr.At(i));
-//         }
-
-//         for (int i = mid; i < arr.Count; i++)
-//         {
-//             right.AddLast(arr.At(i));
-//         }
-
-//         // merge left and right arrays
-//         int i = 0, j = 0, k = 0;
-//         while (i < leftSize && j < rightSize)
-//         {
-//             if (key(left.At(i)).CompareTo(key(right.At(j))) < 0)
+//             if (key(leftArr.At(iLeft)).CompareTo(key(rightArr.At(iRight))) <= 0)
 //             {
-//                 arr.Set(k, left.At(i));
-//                 i++;
+//                 arr.Set(k++, leftArr.At(iLeft++));
 //             }
 //             else
 //             {
-//                 arr.Set(k, right.At(j));
-//                 j++;
+//                 arr.Set(k++, rightArr.At(iRight++));
 //             }
-//             k++;
 //         }
+
+//         while (iLeft < leftSize) arr.Set(k++, leftArr.At(iLeft++));
+//         while (iRight < rightSize) arr.Set(k++, rightArr.At(iRight++));
 //     }
 // }
