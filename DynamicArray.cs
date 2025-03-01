@@ -5,7 +5,7 @@ namespace DSA;
 public class DynamicArray<T>
 {
 
-    private T[] Items { get; set; } = Array.Empty<T>();
+    private T[] Items { get; set; }
     public int Count { get; private set; } = 0;
 
     private  int size;
@@ -119,6 +119,38 @@ public class DynamicArray<T>
         }
 
         Items[index] = item;
+    }
+
+    public T? Find(T value) {
+        for (int i = 0; i < Count; i++) {
+            if (Items[i]!.Equals(value)) {
+                return Items[i];
+            }
+        }
+        return default(T);
+    }
+
+    public T? Find<T1> (T1 value, Func<T, T1> key) {
+        for (int i = 0; i < Count; i++) {
+            if (key(Items[i]!)!.Equals(value)) {
+                return Items[i];
+            }
+        }
+        return default(T);
+    }
+
+    public override string ToString()
+    {
+        string ret = "";
+        for (int i = 0; i < Count; i++)
+        {
+            ret += Items[i]!.ToString();
+            if (i != Count - 1)
+            {
+                ret += ", ";
+            }
+        }
+        return $"[{ret}]";
     }
 }
 
