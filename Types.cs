@@ -2,16 +2,31 @@ namespace MovieTracker;
 
 class Movie
 {
-    public List<int> Genres;
-    int Id;
-    string? IMBb;
-    string? Overview;
+    public DSA.DynamicArray<Genre> Genres;
+    public int Id { get; private set; }
+    public string? IMBb { get; private set; }
+    public string? Overview { get; private set; }
     public string Title { get; private set; }
-    double? Runtime;
-    double? Rating;
-    int ReleaseYear;
-    
-    public Movie(int id, string title, List<int> genres, string overview, int release, double? runtime, double? rating, string? imdb)
+    public double? Runtime { get; private set; }
+    public double? Rating { get; private set; }
+    public int ReleaseYear { get; private set; }
+
+    public override string ToString()
+    {
+        var ret = "";
+        ret += $"Id={Id}, ";
+        ret += $"Title={Title}, ";
+        ret += "Overview=" + (Overview ?? "null") + ", ";
+        ret += "Genres=" + (Genres?.ToString() ?? "null") + ", ";
+        ret += $"ReleaseYear={ReleaseYear}, ";
+        ret += "Runtime=" + (Runtime?.ToString() ?? "null") + ", ";
+        ret += "Rating=" + (Rating?.ToString() ?? "null") + ", ";
+        ret += "IMBb=" + (IMBb ?? "null");
+
+        return $"Movie({ret})";
+    }
+
+    public Movie(int id, string title, DSA.DynamicArray<Genre> genres, string overview, int release, double? runtime, double? rating, string? imdb)
     {
         Id = id;
         Title = title;
@@ -26,8 +41,8 @@ class Movie
 
 class Genre 
 {
-    int Id;
-    string Name;
+    public int Id { get; private set; }
+    public string Name { get; private set; }
 
     public Genre(int id, string name)
     {
