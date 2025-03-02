@@ -7,7 +7,7 @@ class CLI: CLIActions {
             return 0;
         }
         string query, listName;
-        int year, resultId, listId;
+        int year, resultId, listId, NPages;
         float rating;
 
         var AllMovies = Tracker.Store!.Movies;
@@ -28,6 +28,7 @@ class CLI: CLIActions {
                 return 0;
             case "search":
                 CheckNthArg(res, 1, "No search parameter provided");
+                Tracker.CurrentPage = 0;
                 switch(res[1]){
                     case "title":
                         CheckNthArg(res, 2, "No title provided");
@@ -65,6 +66,7 @@ class CLI: CLIActions {
                 return 0;
             case "sort":
                 CheckNthArg(res, 1, "No sort parameter provided");
+                Tracker.CurrentPage = 0;
                 switch(res[1]) {
                     case "title":
                         SortByTitle();
@@ -84,6 +86,7 @@ class CLI: CLIActions {
 
             case "filter":
                 CheckNthArg(res, 1, "No filter parameter provided");
+                Tracker.CurrentPage = 0;
                 switch(res[1]) {
                     case "year":
                         CheckNthArg(res, 2, "No year provided");
@@ -125,6 +128,7 @@ class CLI: CLIActions {
                         AddMovieToListFromResults(listId, resultId);
                         return 0;
                     case "show":
+                        Tracker.CurrentPage = 0;
                         listId = GetOrCreateListIdFromUser(false);
                         Tracker.Res = new(Tracker.UserData.UserLists.At(listId).Movies);
                         ShowResults();
@@ -132,6 +136,31 @@ class CLI: CLIActions {
                     default:
                         throw new Exception("Invalid list parameter");
                 }
+            case "p":   // Previous Page
+                if (Tracker.CurrentPage != 0) {
+                    Tracker.CurrentPage--;
+                }
+                ShowResults();
+                return 0;
+            case "n":   // Next Page
+                NPages = (int)Math.Ceiling((double)Tracker.Res.Count/Tracker.ItemsPerPage);
+                if (Tracker.CurrentPage != NPages-1) {
+                    Tracker.CurrentPage++;
+                }
+                ShowResults();
+                return 0;
+
+            case "page":   // goto page
+                CheckNthArg(res, 1, "No page number provided");
+                int page = Convert.ToInt32(res[1]);
+                NPages = (int)Math.Ceiling((double)Tracker.Res.Count/Tracker.ItemsPerPage);
+                if (page < 1 || page > NPages) {
+                    throw new Exception("Invalid page number");
+                }
+                Tracker.CurrentPage = page-1;
+                ShowResults();
+                return 0;
+                
             case "exit":
                 return -1;
 
