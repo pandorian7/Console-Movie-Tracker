@@ -53,10 +53,11 @@ abstract class CLIActions {
         Console.Write(" >> ");
         return Console.ReadLine();
     }
-    public abstract void ExecuteCommand(string command);
+    public abstract int ExecuteCommand(string command);
     
     public void Run() {
         string? command;
+        int ret;
         while (true) {
             command = ReadUserCommand();
             Console.WriteLine();
@@ -64,8 +65,11 @@ abstract class CLIActions {
                 continue;
             }
             try {
-                ExecuteCommand(command);
+                ret = ExecuteCommand(command);
                 Console.WriteLine();
+                if (ret == -1) {
+                    break;
+                }
             } catch (Exception e) {
                 Console.WriteLine($"Error: {e.Message}");
             }
@@ -77,11 +81,6 @@ abstract class CLIActions {
         Tracker.Res = new();
         query = Utils.Clean(query);
         Tracker.Res = Tracker.Search(query);
-        for (int i=0; i<list.Count; i++) {
-            if (list.At(i).CleanTitle.Contains(query)) {
-                Tracker.Res.AddLast(list.At(i));
-            }
-        }
     }
 
     public void FilterByYear(DSA.DynamicArray<Movie> list, int year) {
