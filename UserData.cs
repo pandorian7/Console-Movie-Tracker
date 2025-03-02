@@ -49,9 +49,11 @@ class UserData
         for(int i=0; i<NUserLists; i++) {
             string listName = sr.ReadLine()!;
             var list = new UserList(listName);
-            for(int j=0; j<ReadInt(); j++) {
+            int NMovies = ReadInt();
+            for(int j=0; j<NMovies; j++) {
                 int movieId = ReadInt();
-                list.Movies.AddLast(Movies!.At(movieId));
+                var m = Movies!.Find(movieId, m=>m.Id);
+                list.Movies.AddLast(Movies!.Find(movieId, m=>m.Id)!);
             }
             UserLists.AddLast(list);
         }
