@@ -1,6 +1,6 @@
 using System;
 
-namespace DAS;
+namespace DSA;
 
 public class LinkedList<T> where T : IEquatable<T>
 {
@@ -181,14 +181,16 @@ public class LinkedList<T> where T : IEquatable<T>
         return false;
     }
 
-    public void Print()
+    public override string ToString()
     {
         Node<T>? temp = Head;
+        string ret = "";
         while (temp != null)
         {
-            Console.WriteLine(temp.Data);
+            ret += temp.Data + "\n";
             temp = temp.Next;
         }
+        return ret;
     }
 }
 

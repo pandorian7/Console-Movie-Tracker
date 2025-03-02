@@ -5,6 +5,8 @@ namespace MovieTracker;
 
 class MovieTracker{
     public MovieStore? Store { get; private set; }
+
+    public UserData UserData { get; private set; }
     public DSA.DynamicArray<Movie> Res { get; set; }
 
     public SortingEngine Sorting;
@@ -12,6 +14,7 @@ class MovieTracker{
     public MovieTracker() {
         Res = new();
         Sorting = new();
+        UserData = new();
     }
 
     public void LoadStore() {
