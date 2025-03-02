@@ -26,8 +26,39 @@ class MovieTracker{
     //show results
 
     public void ShowMoveInfo(int id) {
-        Console.WriteLine($"information of move with id {id}");
+    var movie = Res.At(id - 1);
+
+    // Get the full width of the console
+    int consoleWidth = Console.WindowWidth;
+    string border = new string('=', consoleWidth);
+    string divider = new string('-', consoleWidth);
+
+    // Extract genres
+    DynamicArray<string> genreNames = new DynamicArray<string>();
+    for (int j = 0; j < movie.Genres.Count; j++) {
+        genreNames.AddLast(movie.Genres.At(j).Name);
     }
+
+    // Join genres with comma and space - no brackets
+    string genres = string.Join(", ", genreNames);
+
+    // Fancy display
+    Console.WriteLine();
+    Console.WriteLine(border); // Top border
+    Console.WriteLine($"🎬  {movie.Title} ({movie.ReleaseYear})");
+    Console.WriteLine(divider); // Divider
+    Console.WriteLine();
+    Console.WriteLine($"📜 Overview: {movie.Overview}");
+    Console.WriteLine();
+    Console.WriteLine($"🎭 Genres: {genres}");
+    Console.WriteLine($"⏳ Runtime: {movie.Runtime} mins");
+    Console.WriteLine($"⭐ Rating: {movie.Rating}/10");
+    Console.WriteLine($"🔗 IMDb: https://www.imdb.com/title/{movie.IMDb}");
+    Console.WriteLine();
+    // Console.WriteLine(border); // Bottom border
+}
+
+
 
     public void ShowResults() {
     if (Res == null || Res.Count == 0) {
