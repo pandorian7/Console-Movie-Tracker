@@ -225,5 +225,10 @@ public class DynamicArray<T>
         }
         return $"[{ret}]";
     }
+    public IEnumerator<T> GetEnumerator() {
+        for (int i = 0; i < Count; i++) {
+            yield return Items[i];
+        }
+    }
 }
 
