@@ -2,40 +2,40 @@ using System;
 
 namespace DAS;
 
-public class LinkedList
+public class LinkedList<T> where T : IEquatable<T>
 {
-    public Node? Head { get; set; }
-    public Node? Tail { get; set; }
+    public Node<T>? Head { get; set; }
+    public Node<T>? Tail { get; set; }
     public int Count { get; set; }
 
-    public void AddLast(int val)
+    public void AddLast(T val)
     {
         if (Head == null)
         {
-            Head = new Node(val);
+            Head = new Node<T>(val);
             Tail = Head;
             Count = 1;
         }
         else
         {
-            Node temp = new Node(val);
+            Node<T> temp = new Node<T>(val);
             Tail.Next= temp;
             Tail = temp;
             Count++;
         }
     }
 
-    public void AddFront(int val)
+    public void AddFront(T val)
     {
         if (Head == null)
         {
-            Head = new Node(val);
+            Head = new Node<T>(val);
             Tail = Head;
             Count = 1;
         }
         else
         {
-            Node temp = new Node(val);
+            Node<T> temp = new(val);
             temp.Next = Head;
             Head = temp;
             Count++;
@@ -73,7 +73,7 @@ public class LinkedList
         }
         else
         {
-            Node temp = Head;
+            var temp = Head;
             while(temp.Next != Tail)
             {
                 temp = temp.Next;
@@ -84,7 +84,7 @@ public class LinkedList
         }
     }
 
-    public void InsertAt(int index, int val)
+    public void InsertAt(int index, T val)
     {
         if(index < 0 || index > Count)
         {
@@ -100,12 +100,12 @@ public class LinkedList
         }
         else
         {
-            Node? temp = Head;
+            var temp = Head;
             for(int i=0; i<index-1;i++)
             {
                 temp = temp.Next;
             }
-            Node newNode = new Node(val);
+            Node<T> newNode = new(val);
             newNode.Next = temp.Next;
             temp.Next = newNode;
             Count++;
@@ -130,7 +130,7 @@ public class LinkedList
         }
         else
         {
-            Node? temp = Head;
+            var temp = Head;
             for(int i=0; i<index-1; i++)
             {
                 temp = temp.Next;
@@ -150,9 +150,9 @@ public class LinkedList
         {
             return;
         }
-        Node? prev = null;
-        Node? curr = Head;
-        Node? next = null;
+        Node<T>? prev = null;
+        Node<T>? curr = Head;
+        Node<T>? next = null;
         Tail = Head;
 
         while(curr != null)
@@ -165,12 +165,12 @@ public class LinkedList
         Head = prev;
     }
 
-    public bool Search(int val)
+    public bool Search(T val)
     {
-        Node? temp = Head;
+        Node<T>? temp = Head;
         while(temp != null)
         {
-            if(temp.Data == val)
+            if(temp.Data.Equals(val))
             {
                 //Node newNode = new Node(temp.Data);
                 //return newNode.Data;
@@ -183,7 +183,7 @@ public class LinkedList
 
     public void Print()
     {
-        Node? temp = Head;
+        Node<T>? temp = Head;
         while (temp != null)
         {
             Console.WriteLine(temp.Data);
@@ -194,11 +194,11 @@ public class LinkedList
 
 
 
-public class Node
+public class Node<T>
 {
-    public int Data { get; set; }
-    public Node? Next { get; set; }
-    public Node(int data)
+    public T Data { get; set; }
+    public Node<T>? Next { get; set; }
+    public Node(T data)
     {
         Data = data;
         Next = null;
