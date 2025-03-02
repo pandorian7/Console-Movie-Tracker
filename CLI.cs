@@ -203,10 +203,13 @@ class CLI {
                             Tracker.UserData.UserLists.AddLast(new UserList(list_name));
                             list_id = Tracker.UserData.UserLists.Count-1;
                         } else {
-                            list_id = Convert.ToInt32(listIdSrt);
+                            list_id = Convert.ToInt32(listIdSrt)-1;
+                            
+                            if (list_id < 0 || list_id >= Tracker.UserData.UserLists.Count) {
+                                throw new Exception("Invalid list id");
                         }
-                        
-                        Tracker.UserData.UserLists.At(list_id).Movies.AddLast(Tracker.Res.At(resultId));
+                        }
+                        Tracker.UserData.UserLists.At(list_id).Movies.AddLast(Tracker.Res.At(resultId-1));
 
                         break;
                     default:

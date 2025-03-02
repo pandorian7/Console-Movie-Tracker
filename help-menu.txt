@@ -1,32 +1,56 @@
-Search Movies with Title, Release Year, Genre or IMDb id
+ 🎬 Movie Tracker - Help Centre🎬  
 
-  search [by] [text]
-    by { title year genre imdb}
-  
-  search title has the short form 
-    ? [text]
-      eg: ? the matrix
+🔍 Search Movies by Title, Release Year, Genre, or IMDb ID
+  Format: search {title, year, genre, imdb} [text]
+  ✅ Examples:  
+  - 🔎 search title Avatar 
+  - 🎞️  search year 2010 
 
-View Information of the Movie from the Search Results
-  info [search results id]
-    eg: info 1
+  📝 Shortcut for Title Search: 
+    Format: ? [title]  
+    ✅ Example: ? Avatar 
 
-Sort Results by Title, Release Year, Rating
+_____________________________________________________________________________________________________________
 
-  sort [by]
-    by {title year rating}
+📌 View Movie Details from Search Results
+  Format: info [search results id]
+  ✅ Example: info 1 
 
-Filter Results by Year, Rating, Genre
-  filter [by] [text]
-    eg: filter year 2005
+_____________________________________________________________________________________________________________
 
-View the results of last search or filter action
-  
-  res
+📊 Sort Search Results 
+   - 🔠 By Title  → Alphabetical Order  
+   - 📅 By Year   → Ascending Order  
+   - ⭐ By Rating → Ascending Order  
 
-Print this Help Menu
-    
-    help
+  Format: sort {title, year, rating}
+  ✅ Example: sort year
 
-Exit Programme
-  exit
+_____________________________________________________________________________________________________________
+
+🎭 Filter Search Results
+  - 📅 By Year 
+  - ⭐ By Rating 
+  - 🎞️  By Genre  
+
+  Format: filter {year, rating, genre} [text]  
+  ✅ Example: filter year 2012
+
+_____________________________________________________________________________________________________________
+
+📝 View Last Search & Filter Results
+  *Command: res
+
+_____________________________________________________________________________________________________________
+
+🔎 View Help Menu Again
+  *Command: help  
+
+_____________________________________________________________________________________________________________
+
+🚪Exit the Program  
+  *Command: exit  
+
+_____________________________________________________________________________________________________________
+
+
