@@ -140,6 +140,20 @@ public class LinkedList<T>
         }
     }
 
+    public bool Contains(T val)
+    {
+        Node<T>? temp = Head;
+        while(temp != null)
+        {
+            if(temp.Data!.Equals(val))
+            {
+                return true;
+            }
+            temp = temp.Next;
+        }
+        return false;
+    }
+
     public void Reverse()
     {
         if(Head == null)
