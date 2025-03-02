@@ -14,13 +14,15 @@ class MovieTracker{
     public MovieTracker() {
         Res = new();
         Sorting = new();
-        UserData = new();
+        UserData = new("user-data.txt");
     }
 
     public void LoadStore() {
         var loader = new Loader("movie_metadata.txt");
         Console.Write("Loading Movies...");
         Store = loader.Read();
+        UserData.Movies = Store.Movies;
+        UserData.LoadIfPossible();
         Console.Write($"\r{Store.Movies.Count} movies loaded.");
         Thread.Sleep(2000);
         Console.Write("\r\n");

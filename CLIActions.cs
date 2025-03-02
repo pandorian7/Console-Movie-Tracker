@@ -106,6 +106,7 @@ abstract class CLIActions {
 
     public void NewList(string listName) {
         Tracker.UserData.UserLists.AddLast(new UserList(listName));
+        Tracker.UserData.Save();
     }
 
     public void ShowAllLists() {
@@ -132,6 +133,7 @@ abstract class CLIActions {
             Console.Write("Enter New List Name: ");
             string list_name = Console.ReadLine()!;
             Tracker.UserData.UserLists.AddLast(new UserList(list_name));
+            Tracker.UserData.Save();
             listId = Tracker.UserData.UserLists.Count-1;
         } else {
             listId = Convert.ToInt32(listIdSrt)-1;
@@ -142,6 +144,8 @@ abstract class CLIActions {
 
     public void AddMovieToListFromResults(int listId, int resultId) {
         Tracker.UserData.UserLists.At(listId).Movies.AddLast(Tracker.Res.At(resultId-1));
+        Tracker.UserData.Save();
+        
     }
 
     public void VerityValidIndex<T>(DSA.DynamicArray<T> list, int index) {
