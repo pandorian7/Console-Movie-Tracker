@@ -127,10 +127,12 @@ class CLI {
                         break;
                     case "year":
                         Tracker.Sorting.Sort(Tracker.Res, x => x.ReleaseYear);
+                        Tracker.Res.Reverse();
                         Tracker.ShowResults();
                         break;
                     case "rating":
                         Tracker.Sorting.Sort(Tracker.Res, x => x.Rating ?? 0);
+                        Tracker.Res.Reverse();
                         Tracker.ShowResults();
                         break;
                     default:
