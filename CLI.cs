@@ -138,6 +138,32 @@ class CLI {
                 }
                 break;
 
+            case "filter":
+                CLI.CheckNthArg(res, 1, "No filter parameter provided");
+                switch(res[1]) {
+                    case "year":
+                        CLI.CheckNthArg(res, 2, "No year provided");
+                        int year = Convert.ToInt32(res[2]);
+                        Tracker.Res = Tracker.Res.Filter(m => m.ReleaseYear == year);
+                        Tracker.ShowResults();
+                        break;
+                    case "genre":
+                        CLI.CheckNthArg(res, 2, "No genre provided");
+                        string query = CLI.MergeFrom(res, 2);
+                        var g = Tracker.Store!.GetMatchingGenres(query);
+                        Tracker.Res = Tracker.Res.Filter(m => m.Genres.ContainsAny(g));
+                        Tracker.ShowResults();
+                        break;
+                    case "rating":
+                        CLI.CheckNthArg(res, 2, "No rating provided");
+                        float rating = Convert.ToSingle(res[2]);
+                        Tracker.Res = Tracker.Res.Filter(m => m.Rating >= rating);
+                        Tracker.ShowResults();
+                        break;
+                    default:
+                        throw new Exception("Invalid filter parameter");
+                }
+                break;
             
             case "exit":
                 Environment.Exit(0);

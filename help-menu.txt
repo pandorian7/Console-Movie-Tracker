@@ -16,6 +16,10 @@ Sort Results by Title, Release Year, Rating
   sort [by]
     by {title year rating}
 
+Filter Results by Year, Rating, Genre
+  filter [by] [text]
+    eg: filter year 2005
+
 View the results of last search or filter action
   
   res

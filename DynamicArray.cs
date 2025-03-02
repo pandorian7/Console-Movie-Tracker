@@ -156,6 +156,15 @@ public class DynamicArray<T>
         return false;
     }
 
+    public bool ContainsAny(DynamicArray<T> values) {
+        for (int i = 0; i < values.Count; i++) {
+            if (Contains(values.At(i)!)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public bool Contains(Func<T, bool> comp) {
         for (int i = 0; i < Count; i++) {
             if (comp(Items[i]!)) {
