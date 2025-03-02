@@ -27,6 +27,22 @@ public class DynamicArray<T>
         Count = 0;
     }
 
+        public DynamicArray(LinkedList<T> list)
+    {
+        if (list == null)
+            throw new ArgumentNullException(nameof(list));
+
+        size = 4;
+        Items = new T[size];
+        Count = 0;
+
+        var current = list.Head;
+        while (current != null)
+        {
+            AddLast(current.Data);
+            current = current.Next;
+        }
+    }
 
 
     private void Expand()

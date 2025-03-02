@@ -2,7 +2,7 @@ using System;
 
 namespace DSA;
 
-public class LinkedList<T> where T : IEquatable<T>
+public class LinkedList<T>
 {
     public Node<T>? Head { get; set; }
     public Node<T>? Tail { get; set; }
@@ -170,7 +170,7 @@ public class LinkedList<T> where T : IEquatable<T>
         Node<T>? temp = Head;
         while(temp != null)
         {
-            if(temp.Data.Equals(val))
+            if(temp.Data!.Equals(val))
             {
                 //Node newNode = new Node(temp.Data);
                 //return newNode.Data;
