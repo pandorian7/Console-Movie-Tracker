@@ -2,6 +2,10 @@ Search Movies with Title, Release Year, Genre or IMDb id
 
   search [by] [text]
     by { title year genre imdb}
+  
+  search title has the short form 
+    ? [text]
+      eg: ? the matrix
 
 View Information of the Movie from the Search Results
   info [search results id]
@@ -19,3 +23,6 @@ View the results of last search or filter action
 Print this Help Menu
     
     help
+
+Exit Programme
+  exit
