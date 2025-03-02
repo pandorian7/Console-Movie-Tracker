@@ -41,6 +41,7 @@ class MovieTracker{
 
     // Join genres with comma and space - no brackets
     string genres = string.Join(", ", genreNames);
+    genres = genres.Trim('[', ']');
 
     // Fancy display
     Console.WriteLine();
@@ -60,7 +61,7 @@ class MovieTracker{
 
 
 
-    public void ShowResults() {
+ public void ShowResults() {
     if (Res == null || Res.Count == 0) {
         Console.WriteLine("No results found.");
         return;
@@ -70,11 +71,12 @@ class MovieTracker{
     int terminalWidth = Console.WindowWidth;
     
     // Define fixed widths for columns
-    int idWidth = 3;
+    int idWidth = 5;
     int yearWidth = 7;
+    int ratingWidth = 8; // Width for Ratings column
     
     // Calculate remaining space
-    int remainingSpace = terminalWidth - idWidth - yearWidth - 13; // 13 accounts for all separators and spacing
+    int remainingSpace = terminalWidth - idWidth - yearWidth - ratingWidth - 17; // 17 accounts for separators & spacing
     
     // Divide remaining space between title and genres
     int titleWidth = (int)(remainingSpace * 0.4); // 40% for title
@@ -84,36 +86,41 @@ class MovieTracker{
     titleWidth = Math.Max(20, titleWidth);
     genresWidth = Math.Max(20, genresWidth);
     
-    // Consistent spacing
+    // Column headers
     string idCol = "ID";
     string titleCol = "Title";
     string yearCol = "Year";
+    string ratingCol = "Rating";
     string genresCol = "Genres";
     
-    // Simpler box drawing with consistent spacing
+    // Table borders
     string topLine = "┌" + new string('─', idWidth + 2) + 
                     "┬" + new string('─', titleWidth + 2) + 
                     "┬" + new string('─', yearWidth + 2) + 
+                    "┬" + new string('─', ratingWidth + 2) + 
                     "┬" + new string('─', genresWidth + 2) + "┐";
                     
     string midLine = "├" + new string('─', idWidth + 2) + 
                    "┼" + new string('─', titleWidth + 2) + 
                    "┼" + new string('─', yearWidth + 2) + 
+                   "┼" + new string('─', ratingWidth + 2) + 
                    "┼" + new string('─', genresWidth + 2) + "┤";
                    
     string bottomLine = "└" + new string('─', idWidth + 2) + 
                       "┴" + new string('─', titleWidth + 2) + 
                       "┴" + new string('─', yearWidth + 2) + 
+                      "┴" + new string('─', ratingWidth + 2) + 
                       "┴" + new string('─', genresWidth + 2) + "┘";
     
     Console.WriteLine("\nSearch Results:");
     Console.WriteLine(topLine);
     
-    // Create header with consistent spacing
+    // Table Header
     Console.WriteLine(
         "│ " + idCol.PadRight(idWidth) + 
         " │ " + titleCol.PadRight(titleWidth) + 
         " │ " + yearCol.PadRight(yearWidth) + 
+        " │ " + ratingCol.PadRight(ratingWidth) + 
         " │ " + genresCol.PadRight(genresWidth) + " │"
     );
     
@@ -144,12 +151,15 @@ class MovieTracker{
         if (displayGenres.Length > genresWidth) {
             displayGenres = displayGenres.Substring(0, genresWidth - 3) + "...";
         }
+
+        
         
         // Create row with consistent spacing
         Console.WriteLine(
             "│ " + id.ToString().PadRight(idWidth) + 
             " │ " + displayTitle.PadRight(titleWidth) + 
             " │ " + (movie.ReleaseYear.ToString() ?? "N/A").PadRight(yearWidth) + 
+            " │ " + movie.Rating?.ToString().PadRight(ratingWidth) + 
             " │ " + displayGenres.PadRight(genresWidth) + " │"
         );
         id++;
