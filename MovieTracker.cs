@@ -203,10 +203,9 @@ class MovieTracker{
         Res = new();
 
         string searchTerm = Utils.Clean(query);
-
-        for (int i=0; i<Store!.Movies.Count; i++) {
-            if (Store.Movies.At(i).CleanTitle.Contains(searchTerm)) {
-                Res.AddLast(Store.Movies.At(i));
+        foreach (var movie in Store!.Movies) {
+            if (movie.CleanTitle.Contains(searchTerm)) {
+                Res.AddLast(movie);
             }
         }
 

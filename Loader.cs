@@ -59,9 +59,9 @@ class Loader(string fp)
             tmp = sr.ReadLine();
             movie_release = int.TryParse(tmp, out int result_release) ? result_release : 1990;
             movie_genres_parsed = new();
-            for (int i=0; i<movie_genres.Count; i++)
+            foreach (var genre in movie_genres)
             {
-                movie_genres_parsed.AddLast(Genres.Find(movie_genres[i], g=>g.Id)!);
+                movie_genres_parsed.AddLast(Genres.Find(genre, g=>g.Id)!);
             }
             Movies.AddLast(new Movie(movie_id, movie_title, movie_genres_parsed, movie_overview, movie_release, movie_runtime, movie_rating, movie_imdb));
             

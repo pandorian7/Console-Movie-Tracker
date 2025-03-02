@@ -15,10 +15,9 @@ class MovieStore {
         var res = new DSA.DynamicArray<Genre>();
 
         string searchTerm = Utils.Clean(query);
-
-        for (int i=0; i<Genres.Count; i++) {
-            if (Genres.At(i).CleanName.Contains(searchTerm)) {
-                res.AddLast(Genres.At(i));
+        foreach (var genre in Genres) {
+            if (genre.CleanName.Contains(searchTerm)) {
+                res.AddLast(genre);
             }
         }
 
