@@ -207,10 +207,24 @@ class CLI {
                             
                             if (list_id < 0 || list_id >= Tracker.UserData.UserLists.Count) {
                                 throw new Exception("Invalid list id");
-                        }
+                            }
                         }
                         Tracker.UserData.UserLists.At(list_id).Movies.AddLast(Tracker.Res.At(resultId-1));
 
+                        break;
+                    case "show":
+                        Console.WriteLine();
+                        for (int i=0; i<Tracker.UserData.UserLists.Count; i++) {
+                            Console.WriteLine($"{i+1}) {Tracker.UserData.UserLists.At(i).Representation()}");
+                        }
+                        Console.Write("\nEnter list id: ");
+
+                        int listIndex = Convert.ToInt32(Console.ReadLine()!)-1;
+                        if (listIndex < 0 || listIndex >= Tracker.UserData.UserLists.Count) {
+                                throw new Exception("Invalid list id");
+                        }
+                        Tracker.Res = new DSA.DynamicArray<Movie>(Tracker.UserData.UserLists.At(listIndex).Movies);
+                        Tracker.ShowResults();
                         break;
                     default:
                         throw new Exception("Invalid list parameter");
