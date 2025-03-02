@@ -119,6 +119,16 @@ public class DynamicArray<T>
         return Items[index];
     }
 
+    public void Reverse()
+    {
+        for (int i = 0; i < Count / 2; i++)
+        {
+            T temp = Items[i];
+            Items[i] = Items[Count - i - 1];
+            Items[Count - i - 1] = temp;
+        }
+    }
+
     public void Set(int index, T item)
     {
         if (index < 0 || index >= Count)

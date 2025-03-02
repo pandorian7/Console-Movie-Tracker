@@ -1,6 +1,6 @@
 namespace MovieTracker;
 
-class Movie
+class Movie: IEquatable<Movie>
 {
     public DSA.DynamicArray<Genre> Genres;
     public int Id { get; private set; }
@@ -39,6 +39,12 @@ class Movie
         ReleaseYear = release;
 
         CleanTitle = Utils.Clean(title);
+    }
+
+    public bool Equals(Movie? obj)
+    {
+        return obj is Movie movie &&
+               Id == movie.Id;
     }
 }
 

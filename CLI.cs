@@ -127,10 +127,12 @@ class CLI {
                         break;
                     case "year":
                         Tracker.Sorting.Sort(Tracker.Res, x => x.ReleaseYear);
+                        Tracker.Res.Reverse();
                         Tracker.ShowResults();
                         break;
                     case "rating":
                         Tracker.Sorting.Sort(Tracker.Res, x => x.Rating ?? 0);
+                        Tracker.Res.Reverse();
                         Tracker.ShowResults();
                         break;
                     default:
@@ -164,7 +166,54 @@ class CLI {
                         throw new Exception("Invalid filter parameter");
                 }
                 break;
-            
+            case "list":
+                CLI.CheckNthArg(res, 1, "No list parameter provided");
+                switch(res[1]) {
+                    case "new":
+                        CLI.CheckNthArg(res, 2, "No list name provided");
+                        string listName = CLI.MergeFrom(res, 2);
+                        Tracker.UserData.UserLists.AddLast(new UserList(listName));
+                        break;
+                    case "all":
+                        for (int i=0; i<Tracker.UserData.UserLists.Count; i++) {
+                            Console.WriteLine(Tracker.UserData.UserLists.At(i));
+                        }
+                        break;
+                    case "add":
+                        CLI.CheckNthArg(res, 2, "No rearch result id provided");
+                        int resultId = Convert.ToInt32(res[2]);
+                        if (resultId < 1 || resultId > Tracker.Res.Count) {
+                            throw new Exception("Invalid search result id");
+                        }
+                        Console.WriteLine("Enter List Id:");
+                        Console.WriteLine();
+                        for (int i=0; i<Tracker.UserData.UserLists.Count; i++) {
+                            Console.WriteLine($"{i+1}) {Tracker.UserData.UserLists.At(i).Representation()}");
+                        }
+                        Console.WriteLine("+) Add to a New List");
+                        Console.Write("Enter list id: ");
+
+                        string listIdSrt = Console.ReadLine()!;
+                        
+                        int list_id;
+
+                        if (listIdSrt == "+") {
+                            Console.Write("Enter New List Name: ");
+                            string list_name = Console.ReadLine()!;
+                            Tracker.UserData.UserLists.AddLast(new UserList(list_name));
+                            list_id = Tracker.UserData.UserLists.Count-1;
+                        } else {
+                            list_id = Convert.ToInt32(listIdSrt);
+                        }
+                        
+                        Tracker.UserData.UserLists.At(list_id).Movies.AddLast(Tracker.Res.At(resultId));
+
+                        break;
+                    default:
+                        throw new Exception("Invalid list parameter");
+                }
+
+                break;
             case "exit":
                 Environment.Exit(0);
                 break;
@@ -178,11 +227,13 @@ class CLI {
         string? command;
         while (true) {
             command = ReadUserCommand();
+            Console.WriteLine();
             if (command == null) {
                 continue;
             }
             try {
                 ExecuteCommand(command);
+                Console.WriteLine();
             } catch (Exception e) {
                 Console.WriteLine($"Error: {e.Message}");
             }
