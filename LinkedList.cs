@@ -19,7 +19,7 @@ public class LinkedList<T> where T : IEquatable<T>
         else
         {
             Node<T> temp = new Node<T>(val);
-            Tail.Next= temp;
+            Tail!.Next= temp;
             Tail = temp;
             Count++;
         }
@@ -74,7 +74,7 @@ public class LinkedList<T> where T : IEquatable<T>
         else
         {
             var temp = Head;
-            while(temp.Next != Tail)
+            while(temp!.Next != Tail)
             {
                 temp = temp.Next;
             }
@@ -103,10 +103,10 @@ public class LinkedList<T> where T : IEquatable<T>
             var temp = Head;
             for(int i=0; i<index-1;i++)
             {
-                temp = temp.Next;
+                temp = temp!.Next;
             }
             Node<T> newNode = new(val);
-            newNode.Next = temp.Next;
+            newNode.Next = temp!.Next;
             temp.Next = newNode;
             Count++;
         }
@@ -133,9 +133,9 @@ public class LinkedList<T> where T : IEquatable<T>
             var temp = Head;
             for(int i=0; i<index-1; i++)
             {
-                temp = temp.Next;
+                temp = temp!.Next;
             }
-            temp.Next = temp.Next.Next;
+            temp!.Next = temp.Next!.Next;
             Count--;
         }
     }
