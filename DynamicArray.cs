@@ -1,9 +1,10 @@
 using System.Diagnostics.Contracts;
+using MovieTracker;
 
 
 namespace DSA;
 
-public class DynamicArray<T>
+public class DynamicArray<T> where T : IEquatable<T>
 {
 
     private T[] Items { get; set; }
@@ -25,6 +26,23 @@ public class DynamicArray<T>
         Items = new T[size];
         Count = 0;
     }
+
+    public DynamicArray(LinkedList<T> list)
+{
+    if (list == null)
+        throw new ArgumentNullException(nameof(list));
+
+    size = 4;
+    Items = new T[size];
+    Count = 0;
+
+    var current = list.Head;
+    while (current != null)
+    {
+        AddLast(current.Data);
+        current = current.Next;
+    }
+}
 
 
     private void Expand()
