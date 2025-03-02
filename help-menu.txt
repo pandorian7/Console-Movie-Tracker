@@ -20,8 +20,8 @@ ________________________________________________________________________________
 
 📊 Sort Search Results 
    - 🔠 By Title  → Alphabetical Order  
-   - 📅 By Year   → Ascending Order  
-   - ⭐ By Rating → Ascending Order  
+   - 📅 By Year   → Descending Order  
+   - ⭐ By Rating → Descending Order  
 
   Format: sort {title, year, rating}
   ✅ Example: sort year
@@ -36,6 +36,21 @@ ________________________________________________________________________________
   Format: filter {year, rating, genre} [text]  
   ✅ Example: filter year 2012
 
+_____________________________________________________________________________________________________________
+
+🌟 Create Your Own Watchlist
+
+  1. Create a New List
+   📌 Command: list new [name of the list] 
+
+  2. Add Items to the List
+   🎮 Command: list add [id of the movie]
+
+  3. View Items in the List
+   👀 Command: list show  
+
+  4. View All Created Lists  
+   📂 Command: list all  
 _____________________________________________________________________________________________________________
 
 📝 View Last Search & Filter Results
