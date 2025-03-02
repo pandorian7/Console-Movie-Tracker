@@ -3,6 +3,10 @@ Search Movies with Title, Release Year, Genre or IMDb id
   search [by] [text]
     by { title year genre imdb}
 
+View Information of the Movie from the Search Results
+  info [search results id]
+    eg: info 1
+
 Sort Results by Title, Release Year, Rating
 
   sort [by]

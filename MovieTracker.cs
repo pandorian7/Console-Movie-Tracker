@@ -24,6 +24,11 @@ class MovieTracker{
     }
 
     //show results
+
+    public void ShowMoveInfo(int id) {
+        Console.WriteLine($"information of move with id {id}");
+    }
+
     public void ShowResults() {
     if (Res == null || Res.Count == 0) {
         Console.WriteLine("No results found.");

@@ -33,6 +33,7 @@ class CLI {
         Tracker.LoadStore();
         Console.WriteLine();
         Console.WriteLine("ex: search title the matrix");
+        Console.WriteLine("    info 1");
         Console.WriteLine("\"help\" for more detail help");
         Console.WriteLine();
 
@@ -104,7 +105,14 @@ class CLI {
                         throw new Exception("Invalid search parameter");
                 }
                 break;
-
+            case "info":
+                CLI.CheckNthArg(res, 1, "No serach result id provided");
+                int searchId = Convert.ToInt32(res[1]);
+                if (searchId < 1 || searchId > Tracker.Res.Count) {
+                    throw new Exception("Invalid search result id");
+                }
+                Tracker.ShowMoveInfo(searchId);
+                break;
             case "sort":
                 CLI.CheckNthArg(res, 1, "No sort parameter provided");
                 switch(res[1]) {
