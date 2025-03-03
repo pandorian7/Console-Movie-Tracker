@@ -121,6 +121,7 @@ abstract class CLIActions {
 
     public int GetOrCreateListIdFromUser(bool allowCreate=false) {
         Console.WriteLine();
+        Console.WriteLine($"0) {Tracker.UserData.WatchedList.Representation()}");
         for (int i=0; i<Tracker.UserData.UserLists.Count; i++) {
             Console.WriteLine($"{i+1}) {Tracker.UserData.UserLists.At(i).Representation()}");
         }
@@ -147,9 +148,16 @@ abstract class CLIActions {
     } 
 
     public void AddMovieToListFromResults(int listId, int resultId) {
-        Tracker.UserData.UserLists.At(listId).Movies.AddLast(Tracker.Res.At(resultId-1));
-        Tracker.UserData.Save();
+        if(listId == 0)
+        {
+            Tracker.UserData.WatchedList.AddMovie(Tracker.Res.At(resultId-1));
+        }
+        else
+        {
+            Tracker.UserData.UserLists.At(listId).Movies.AddLast(Tracker.Res.At(resultId-1));
+        }
         
+            Tracker.UserData.Save();
     }
 
     public void VerityValidIndex<T>(DSA.DynamicArray<T> list, int index) {
