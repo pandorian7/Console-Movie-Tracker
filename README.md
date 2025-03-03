@@ -23,7 +23,7 @@ Movie Tracker is a command-line application that helps users search, sort, filte
    ```
 3. Run the program:
    ```sh
-   python main.py
+   dotnet run
    ```
 
 ## 🛠 Commands
