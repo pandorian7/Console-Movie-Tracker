@@ -17,10 +17,10 @@ namespace DSA
             Right = null;
         }
     }
-    public class BST<T>
+    public class BST<T> 
     {
         public int Count { get; private set; }
-        private TreeNode<T>? Root { get; set; }
+        public TreeNode<T>? Root { get; set; }
         private Func<T, IComparable> Key { get; }
 
         public BST(Func<T, IComparable> keySelector)
@@ -47,6 +47,7 @@ namespace DSA
             {
                 root.Right = InsertRecursively(item, root.Right);
             }
+
 
             return root;
         }
@@ -181,6 +182,34 @@ namespace DSA
         {
             PrintInOrder(Root);
             // Console.WriteLine(FindMin(Root));
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            // Helper function for in-order traversal using yield
+            IEnumerable<T> InOrderTraversal(TreeNode<T>? node)
+            {
+                if (node != null)
+                {
+                    // First yield all items from left subtree
+                    foreach (var item in InOrderTraversal(node.Left))
+                    {
+                        yield return item;
+                    }
+                    
+                    // Then yield the current node's value
+                    yield return node.Key;
+                    
+                    // Finally yield all items from right subtree
+                    foreach (var item in InOrderTraversal(node.Right))
+                    {
+                        yield return item;
+                    }
+                }
+            }
+            
+                // Start the in-order traversal from the root
+                return InOrderTraversal(Root).GetEnumerator();
         }
     }
 }
