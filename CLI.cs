@@ -136,6 +136,20 @@ class CLI: CLIActions {
                     default:
                         throw new Exception("Invalid list parameter");
                 }
+
+            case "add":
+                CheckNthArg(res, 1, "No search result id provided");
+                resultId = Convert.ToInt32(res[1]);
+                VerityValidResIndex(resultId);
+                AddMovieToWatchedList(resultId);
+                return 0;
+
+            case "watched":
+                Tracker.CurrentPage = 0;
+                Tracker.Res = new(Tracker.UserData.WatchedList.Movies);
+                ShowResults();
+                return 0;
+
             case "p":   // Previous Page
                 if (Tracker.CurrentPage != 0) {
                     Tracker.CurrentPage--;
@@ -170,6 +184,7 @@ class CLI: CLIActions {
             case "all":
                 LoadAllMoviesToRes();
                 return 0;
+
             
             case "exit":
                 return -1;
