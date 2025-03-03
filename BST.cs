@@ -9,6 +9,7 @@ namespace DSA
         public TreeNode<T>? Left;
         public TreeNode<T>? Right;
 
+
         public TreeNode(T key)
         {
             Key = key;
@@ -18,6 +19,7 @@ namespace DSA
     }
     public class BST<T>
     {
+        public int Count { get; private set; }
         private TreeNode<T>? Root { get; set; }
         private Func<T, IComparable> Key { get; }
 
@@ -33,6 +35,7 @@ namespace DSA
         {
             if (root == null)
             {
+                Count++;
                 return new TreeNode<T>(item);
             }
 

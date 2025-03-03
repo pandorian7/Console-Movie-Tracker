@@ -108,12 +108,15 @@ abstract class CLIActions {
         Tracker.UserData.UserLists.AddLast(new UserList(listName));
         Tracker.UserData.Save();
     }
+    
 
     public void ShowAllLists() {
         Console.WriteLine("Your Lists:");
         for (int i=0; i<Tracker.UserData.UserLists.Count; i++) {
             Console.WriteLine($"    - {Tracker.UserData.UserLists.At(i).Representation()}");
         }
+        Console.WriteLine();
+        Console.WriteLine($"{Tracker.UserData.WatchedList.Representation()}");
     }
 
     public int GetOrCreateListIdFromUser(bool allowCreate=false) {

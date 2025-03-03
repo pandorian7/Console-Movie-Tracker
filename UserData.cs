@@ -6,6 +6,9 @@ class UserData
     public string UserDataPath { get;  private set; }
     public DSA.DynamicArray<Movie>? Movies { get; set; }
 
+    public WatchedList WatchedList { get; private set; }
+    
+
     private StreamWriter FileWrite() {
         return new StreamWriter(UserDataPath);
     }
@@ -20,6 +23,7 @@ class UserData
     public UserData(string userDataPath)
     {
         UserLists = new();
+        WatchedList = new();
         UserDataPath = userDataPath;
     }
 

@@ -1,19 +1,28 @@
 namespace MovieTracker;
 
-class WatchedList {
-    public string Name = "WatchedList";
-    public DSA.LinkedList<Movie> Movies { get; private set; }
+class WatchedList 
+{
+    private string Name { get; set; } // Ensure Name is always initialized
+    public DSA.BST<Movie> Movies { get; private set; } // No need for nullable (?)
 
-    public WatchedList() {
-        Movies = new();
+    public WatchedList() 
+    {
+        Name = "Watched List";
+        Movies = new DSA.BST<Movie>(x => x.Title); // Ensure proper initialization
     }
 
-    public override string ToString()
+    public void AddMovie(Movie movie)
     {
-        return $"WatchedList(Name={Name}, NumMovies={Movies.Count})";
+        Movies.Insert(movie);
+    }
+
+    public void PrintMovies()
+    {
+        Movies.Print();
     }
 
     public string Representation() {
         return $"{Name} ({Movies.Count} movies)";
     }
+
 }
