@@ -49,8 +49,7 @@ namespace DSA
         }
         public void Insert(T key)
         {
-            InsertRecursively(key, Root);
-          // Root = InsertRecursively(key, Root);
+            Root = InsertRecursively(key, Root);
         }
 
         // public void InsertIteratively(T key)

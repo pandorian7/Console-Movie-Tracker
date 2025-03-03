@@ -110,8 +110,9 @@ abstract class CLIActions {
     }
 
     public void ShowAllLists() {
-        foreach(var list in Tracker.UserData.UserLists) {
-            Console.WriteLine(list);
+        Console.WriteLine("Your Lists:");
+        for (int i=0; i<Tracker.UserData.UserLists.Count; i++) {
+            Console.WriteLine($"    - {Tracker.UserData.UserLists.At(i).Representation()}");
         }
     }
 
