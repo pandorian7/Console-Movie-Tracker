@@ -17,6 +17,7 @@ class SortingEngine {
         Algorithms.AddLast(new InsertionSort());
         Algorithms.AddLast(new SelectionSort());
         Algorithms.AddLast(new BubbleSort());
+        Algorithms.AddLast(new MergeSort());
 
     }
     private ISortingAlgorithm RandomSortingAlgorithem() {
