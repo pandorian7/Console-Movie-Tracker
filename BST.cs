@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DSA
 {
-    public class TreeNode<T> where T : IComparable<T>
+    public class TreeNode<T>
     {
         public T Key;
         public TreeNode<T>? Left;
@@ -16,67 +16,73 @@ namespace DSA
             Right = null;
         }
     }
-    public class BST<T> where T : IComparable<T>
+    public class BST<T>
     {
         private TreeNode<T>? Root { get; set; }
+        private Func<T, IComparable> Key { get; }
 
-        public BST()
+        public BST(Func<T, IComparable> keySelector)
         {
+            Key = keySelector;
             Root = null;
         }
 
-        private TreeNode<T> InsertRecursively(T key, TreeNode<T>? root)
+        
+
+        private TreeNode<T> InsertRecursively(T item, TreeNode<T>? root)
         {
-            //If root is null create a node and insert. O.W use else function
             if (root == null)
             {
-                root = new TreeNode<T>(key);
-                return root;
+                return new TreeNode<T>(item);
             }
 
-            else if (key.CompareTo(root.Key) < 0)
+            if (Key(item).CompareTo(Key(root.Key)) < 0)
             {
-                root.Left = InsertRecursively(key , root.Left);
+                root.Left = InsertRecursively(item, root.Left);
             }
-
-            else if (key.CompareTo(root.Key) > 0)
+            else if (Key(item).CompareTo(Key(root.Key)) > 0)
             {
-                root.Right = InsertRecursively(key, root.Right);
+                root.Right = InsertRecursively(item, root.Right);
             }
 
             return root;
         }
-
-        public void InsertIteratively(T key)
+        public void Insert(T key)
         {
-            TreeNode<T>? current = Root;
-            TreeNode<T>? parent = null;
-
-            if (Root == null)
-            {
-                Root = new TreeNode<T>(key);
-                return;
-            }
-
-            while (current != null)
-            {
-                if (key.CompareTo(current.Key) > 0)
-                {
-                    parent = current;
-                    current = current.Right;
-                }
-
-                else if (key.CompareTo(current.Key) < 0)
-                {
-                    parent = current;
-                    current = current.Left;
-                }
-
-                else { return; } //duplicate key
-            }
-            if (key.CompareTo(parent!.Key) < 0) parent.Left = new TreeNode<T>(key);
-            else parent.Right = new TreeNode<T>(key);
+            InsertRecursively(key, Root);
+          // Root = InsertRecursively(key, Root);
         }
+
+        // public void InsertIteratively(T key)
+        // {
+        //     TreeNode<T>? current = Root;
+        //     TreeNode<T>? parent = null;
+
+        //     if (Root == null)
+        //     {
+        //         Root = new TreeNode<T>(key);
+        //         return;
+        //     }
+
+        //     while (current != null)
+        //     {
+        //         if (key.CompareTo(current.Key) > 0)
+        //         {
+        //             parent = current;
+        //             current = current.Right;
+        //         }
+
+        //         else if (key.CompareTo(current.Key) < 0)
+        //         {
+        //             parent = current;
+        //             current = current.Left;
+        //         }
+
+        //         else { return; } //duplicate key
+        //     }
+        //     if (key.CompareTo(parent!.Key) < 0) parent.Left = new TreeNode<T>(key);
+        //     else parent.Right = new TreeNode<T>(key);
+        // }
 
             private void PrintInOrder(TreeNode<T>? root)
         {
@@ -108,52 +114,48 @@ namespace DSA
             }
         }
 
-        public void Insert(T key)
-        {
-            InsertIteratively(key);
-          // Root = InsertRecursively(key, Root);
-        }
+        
 
-        public void Delete(T key)
-        {
-            Root = DeleteRecursively(Root, key);
-        }
+        // public void Delete(T key)
+        // {
+        //     Root = DeleteRecursively(Root, key);
+        // }
 
-        private TreeNode<T>? DeleteRecursively(TreeNode<T>? root, T key)
-        {
-            if (root == null)
-            {
-                return root;
-            }
+        // private TreeNode<T>? DeleteRecursively(TreeNode<T>? root, T key)
+        // {
+        //     if (root == null)
+        //     {
+        //         return root;
+        //     }
 
-            if (key.CompareTo(root.Key) > 0)
-            {
-                root.Left = DeleteRecursively(root.Left, key);
-            }
+        //     if (key.CompareTo(root.Key) > 0)
+        //     {
+        //         root.Left = DeleteRecursively(root.Left, key);
+        //     }
 
-            else if (key.CompareTo(root.Key) > 0)
-            {
-                root.Right = DeleteRecursively(root.Right, key);
-            }
+        //     else if (key.CompareTo(root.Key) > 0)
+        //     {
+        //         root.Right = DeleteRecursively(root.Right, key);
+        //     }
 
-            else
-            {
-                if(root?.Right == null)
-                {
-                    return root?.Left;
-                }
-                else if (root.Left == null)
-                {
-                    return root?.Right;
-                }
+        //     else
+        //     {
+        //         if(root?.Right == null)
+        //         {
+        //             return root?.Left;
+        //         }
+        //         else if (root.Left == null)
+        //         {
+        //             return root?.Right;
+        //         }
 
-                // root.Key = FindMin(root.Right);
-                root.Right = DeleteRecursively(root.Right, root.Key);
-            }
+        //         // root.Key = FindMin(root.Right);
+        //         root.Right = DeleteRecursively(root.Right, root.Key);
+        //     }
 
-            return root;
+        //     return root;
 
-        }
+        // }
 
         //public int FindMin(TreeNode? root)
         //{
