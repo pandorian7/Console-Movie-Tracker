@@ -172,7 +172,9 @@ abstract class CLIActions {
         Tracker.Res.Reverse();
     }
 
-
+    public void LoadAllMoviesToRes() {
+        Tracker.Res = new(Tracker.Store!.Movies);
+    }
 
     public void ShowResults() {
         Tracker.ShowResults();
