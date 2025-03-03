@@ -79,3 +79,21 @@ class SortingAlgorithm<T1, T2> where T2 : IComparable<T2> {
         Sort = sort;
     }
 }
+
+class SortingStatus {
+    public string Algorithm { get; private set; }
+    public int ItemsSorted { get; private set; }
+    public long TimeTaken { get; private set; }
+
+    public SortingStatus(string algo, int items, long time)
+    {
+        Algorithm = algo;
+        ItemsSorted = items;
+        TimeTaken = time;
+    }
+
+    public override string ToString()
+    {
+        return $"SortingStatus(Algorithm={Algorithm}, ItemsSorted={ItemsSorted}, TimeTaken={TimeTaken})";
+    }
+}
