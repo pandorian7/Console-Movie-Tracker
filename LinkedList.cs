@@ -206,6 +206,13 @@ public class LinkedList<T>
         }
         return ret;
     }
+    public IEnumerator<T> GetEnumerator() {
+        Node<T>? temp = Head;
+        while (temp != null) {
+            yield return temp.Data;
+            temp = temp.Next;
+        }
+    }
 }
 
 

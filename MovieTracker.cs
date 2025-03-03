@@ -9,18 +9,24 @@ class MovieTracker{
     public UserData UserData { get; private set; }
     public DSA.DynamicArray<Movie> Res { get; set; }
 
+    public int ItemsPerPage { get; set; } = 10;
+
+    public int CurrentPage { get; set; } = 0;
+
     public SortingEngine Sorting;
 
     public MovieTracker() {
         Res = new();
         Sorting = new();
-        UserData = new();
+        UserData = new("user-data.txt");
     }
 
     public void LoadStore() {
         var loader = new Loader("movie_metadata.txt");
         Console.Write("Loading Movies...");
         Store = loader.Read();
+        UserData.Movies = Store.Movies;
+        UserData.LoadIfPossible();
         Console.Write($"\r{Store.Movies.Count} movies loaded.");
         Thread.Sleep(2000);
         Console.Write("\r\n");
@@ -129,8 +135,7 @@ class MovieTracker{
     
     Console.WriteLine(midLine);
 
-    int id = 1;
-    for (int i = 0; i < Res.Count; i++) {
+    for (int i = CurrentPage*ItemsPerPage; i < Math.Min(Res.Count, (CurrentPage+1)*ItemsPerPage); i++) {
         Movie movie = Res.At(i);
         
         // Collect all genre names
@@ -159,17 +164,24 @@ class MovieTracker{
         
         // Create row with consistent spacing
         Console.WriteLine(
-            "│ " + id.ToString().PadRight(idWidth) + 
+            "│ " + (i+1).ToString().PadRight(idWidth) + 
             " │ " + displayTitle.PadRight(titleWidth) + 
             " │ " + (movie.ReleaseYear.ToString() ?? "N/A").PadRight(yearWidth) + 
             " │ " + movie.Rating?.ToString().PadRight(ratingWidth) + 
             " │ " + displayGenres.PadRight(genresWidth) + " │"
         );
-        id++;
     }
 
     Console.WriteLine(bottomLine);
-}
+    Console.WriteLine();
+    string pagination = $"<<p Page {CurrentPage+1} of {Math.Ceiling((double)Res.Count/ItemsPerPage)} n>>";
+    int consoleWidth = Console.WindowWidth;
+    int padding = (consoleWidth - pagination.Length) / 2;
+    if (padding > 0)
+            Console.WriteLine(new string(' ', padding) + pagination);
+    else
+        Console.WriteLine(pagination);
+    }
 
 
     // public void ShowResults() {
@@ -191,10 +203,9 @@ class MovieTracker{
         Res = new();
 
         string searchTerm = Utils.Clean(query);
-
-        for (int i=0; i<Store!.Movies.Count; i++) {
-            if (Store.Movies.At(i).CleanTitle.Contains(searchTerm)) {
-                Res.AddLast(Store.Movies.At(i));
+        foreach (var movie in Store!.Movies) {
+            if (movie.CleanTitle.Contains(searchTerm)) {
+                Res.AddLast(movie);
             }
         }
 

@@ -53,10 +53,11 @@ abstract class CLIActions {
         Console.Write(" >> ");
         return Console.ReadLine();
     }
-    public abstract void ExecuteCommand(string command);
+    public abstract int ExecuteCommand(string command);
     
     public void Run() {
         string? command;
+        int ret;
         while (true) {
             command = ReadUserCommand();
             Console.WriteLine();
@@ -64,8 +65,11 @@ abstract class CLIActions {
                 continue;
             }
             try {
-                ExecuteCommand(command);
+                ret = ExecuteCommand(command);
                 Console.WriteLine();
+                if (ret == -1) {
+                    break;
+                }
             } catch (Exception e) {
                 Console.WriteLine($"Error: {e.Message}");
             }
@@ -77,11 +81,6 @@ abstract class CLIActions {
         Tracker.Res = new();
         query = Utils.Clean(query);
         Tracker.Res = Tracker.Search(query);
-        for (int i=0; i<list.Count; i++) {
-            if (list.At(i).CleanTitle.Contains(query)) {
-                Tracker.Res.AddLast(list.At(i));
-            }
-        }
     }
 
     public void FilterByYear(DSA.DynamicArray<Movie> list, int year) {
@@ -107,11 +106,12 @@ abstract class CLIActions {
 
     public void NewList(string listName) {
         Tracker.UserData.UserLists.AddLast(new UserList(listName));
+        Tracker.UserData.Save();
     }
 
     public void ShowAllLists() {
-        for (int i=0; i<Tracker.UserData.UserLists.Count; i++) {
-            Console.WriteLine(Tracker.UserData.UserLists.At(i));
+        foreach(var list in Tracker.UserData.UserLists) {
+            Console.WriteLine(list);
         }
     }
 
@@ -133,6 +133,7 @@ abstract class CLIActions {
             Console.Write("Enter New List Name: ");
             string list_name = Console.ReadLine()!;
             Tracker.UserData.UserLists.AddLast(new UserList(list_name));
+            Tracker.UserData.Save();
             listId = Tracker.UserData.UserLists.Count-1;
         } else {
             listId = Convert.ToInt32(listIdSrt)-1;
@@ -143,6 +144,8 @@ abstract class CLIActions {
 
     public void AddMovieToListFromResults(int listId, int resultId) {
         Tracker.UserData.UserLists.At(listId).Movies.AddLast(Tracker.Res.At(resultId-1));
+        Tracker.UserData.Save();
+        
     }
 
     public void VerityValidIndex<T>(DSA.DynamicArray<T> list, int index) {
