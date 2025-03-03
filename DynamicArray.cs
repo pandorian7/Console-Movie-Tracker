@@ -24,7 +24,7 @@ public class DynamicArray<T>
     {
         this.size = size;
         Items = new T[size];
-        Count = 0;
+        Count = size;
     }
 
         public DynamicArray(LinkedList<T> list)
@@ -97,6 +97,11 @@ public class DynamicArray<T>
         {
             Expand();
         }
+    }
+    public T this[int index]
+    {
+        get { return At(index); }
+        set { Set(index, value); }
     }
     
     public void RemoveAt(int index)

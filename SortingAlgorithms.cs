@@ -72,52 +72,69 @@ public class BubbleSort: ISortingAlgorithm {
 }
 
 
-// public class MergeSort
-// {
-//     public static void Sort<T, K>(DynamicArray<T> arr, Func<T, K> key) where K : IComparable<K>
-//     {
-//         if (arr.Count > 1)
-//         {
-//             Sort(arr, 0, arr.Count - 1, key);
-//         }
-//     }
+class MergeSort: ISortingAlgorithm {
 
-//     private static void Sort<T, K>(DynamicArray<T> arr, int left, int right, Func<T, K> key) where K : IComparable<K>
-//     {
-//         if (left >= right) return;
+    public string Name {get;} = "MergeSort Sort";
 
-//         int mid = (left + right) / 2;
-//         Sort(arr, left, mid, key);
-//         Sort(arr, mid + 1, right, key);
-//         Merge(arr, left, mid, right, key);
-//     }
+    static void merge<T>(DynamicArray<T> arr, int l, int m, int r, Func<T, IComparable> key)
+    {
+        
+        int n1 = m - l + 1;
+        int n2 = r - m;
 
-//     private static void Merge<T, K>(DynamicArray<T> arr, int left, int mid, int right, Func<T, K> key) where K : IComparable<K>
-//     {
-//         int leftSize = mid - left + 1;
-//         int rightSize = right - mid;
+        var L = new DynamicArray<T>(n1);
+        var R = new DynamicArray<T>(n1);
+        int i, j;
 
-//         var leftArr = new DynamicArray<T>(leftSize);
-//         var rightArr = new DynamicArray<T>(rightSize);
+        for (i = 0; i < n1; ++i)
+            L[i] = arr[l + i];
+        for (j = 0; j < n2; ++j)
+            R[j] = arr[m + 1 + j];
 
-//         for (int i = 0; i < leftSize; i++) leftArr.Set(i, arr.At(left + i));
-//         for (int j = 0; j < rightSize; j++) rightArr.Set(j, arr.At(mid + 1 + j));
+        i = 0;
+        j = 0;
 
-//         int iLeft = 0, iRight = 0, k = left;
+        int k = l;
+        while (i < n1 && j < n2) {
+            if (key(L[i]).CompareTo(key(R[j])) <= 0) {
+                arr[k] = L[i];
+                i++;
+            }
+            else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
 
-//         while (iLeft < leftSize && iRight < rightSize)
-//         {
-//             if (key(leftArr.At(iLeft)).CompareTo(key(rightArr.At(iRight))) <= 0)
-//             {
-//                 arr.Set(k++, leftArr.At(iLeft++));
-//             }
-//             else
-//             {
-//                 arr.Set(k++, rightArr.At(iRight++));
-//             }
-//         }
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
 
-//         while (iLeft < leftSize) arr.Set(k++, leftArr.At(iLeft++));
-//         while (iRight < rightSize) arr.Set(k++, rightArr.At(iRight++));
-//     }
-// }
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+
+    static void mergeSort<T>(DynamicArray<T> arr, int l, int r, Func<T, IComparable> key)
+    {
+        if (l < r) {
+
+            int m = l + (r - l) / 2;
+
+
+            mergeSort(arr, l, m, key);
+            mergeSort(arr, m + 1, r, key);
+
+            merge(arr, l, m, r, key);
+        }
+    }
+
+    public void Sort<T>(DynamicArray<T> arr , Func<T, IComparable> key) {
+        mergeSort(arr, 0, arr.Count - 1, key);
+    }
+}
