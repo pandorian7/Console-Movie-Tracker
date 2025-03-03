@@ -160,7 +160,13 @@ class CLI: CLIActions {
                 Tracker.CurrentPage = page-1;
                 ShowResults();
                 return 0;
-                
+
+            case "genres":
+                foreach(var genre in Tracker.Store!.Genres) {
+                    Console.WriteLine($" {genre.Name}");
+                }
+            return 0;
+            
             case "exit":
                 return -1;
 
