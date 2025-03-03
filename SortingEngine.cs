@@ -18,6 +18,7 @@ class SortingEngine {
         Algorithms.AddLast(new SelectionSort());
         Algorithms.AddLast(new BubbleSort());
         Algorithms.AddLast(new MergeSort());
+        Algorithms.AddLast(new QuickSort());
 
     }
     private ISortingAlgorithm RandomSortingAlgorithem() {
@@ -30,7 +31,7 @@ class SortingEngine {
         ItemsSorted = arr.Count;
 
         if (Informative) {
-            Console.WriteLine($"Sorting {ItemsSorted} items using {algo.Name}");
+            Console.WriteLine($"Sorting {ItemsSorted} items using {algo.Name}\n");
         }
 
         Watch = new();
@@ -38,8 +39,15 @@ class SortingEngine {
         algo.Sort(arr, key);
         Watch.Stop();
 
+        var status = new SortingStatus(algo.Name, ItemsSorted, Watch.ElapsedMilliseconds);
+        
+
         if (Informative) {
-            Console.WriteLine($"Sorted {ItemsSorted} items in {Watch.ElapsedMilliseconds}ms");
+            ShowSortingStatus(status);
         }
+    }
+
+    public static void ShowSortingStatus(SortingStatus status) {
+        Console.WriteLine(status);
     }
 }

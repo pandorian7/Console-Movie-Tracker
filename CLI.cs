@@ -166,6 +166,10 @@ class CLI: CLIActions {
                     Console.WriteLine($" {genre.Name}");
                 }
             return 0;
+
+            case "all":
+                LoadAllMoviesToRes();
+                return 0;
             
             case "exit":
                 return -1;

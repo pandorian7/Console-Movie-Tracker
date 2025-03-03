@@ -27,7 +27,17 @@ public class DynamicArray<T>
         Count = size;
     }
 
-        public DynamicArray(LinkedList<T> list)
+    public DynamicArray(DynamicArray<T> arr) {
+        size = 4;
+        Items = new T[size];
+        Count = 0;
+        
+        foreach (var item in arr) {
+            AddLast(item);
+        }
+    }
+
+    public DynamicArray(LinkedList<T> list)
     {
         if (list == null)
             throw new ArgumentNullException(nameof(list));

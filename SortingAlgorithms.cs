@@ -74,7 +74,7 @@ public class BubbleSort: ISortingAlgorithm {
 
 class MergeSort: ISortingAlgorithm {
 
-    public string Name {get;} = "MergeSort Sort";
+    public string Name {get;} = "Merge Sort";
 
     static void merge<T>(DynamicArray<T> arr, int l, int m, int r, Func<T, IComparable> key)
     {
@@ -138,3 +138,45 @@ class MergeSort: ISortingAlgorithm {
         mergeSort(arr, 0, arr.Count - 1, key);
     }
 }
+
+class QuickSort: ISortingAlgorithm {
+
+    public string Name {get;} = "Quick Sort";
+    static int Partition<T>(DynamicArray<T> arr, int low, int high, Func<T, IComparable> key) {
+        
+        var pivot = arr[high];
+        
+        int i = low - 1;
+
+        for (int j = low; j <= high - 1; j++) {
+            if (key(arr[j]).CompareTo(key(pivot)) < 0) {
+                i++;
+                Swap(arr, i, j);
+            }
+        }
+        
+        Swap(arr, i + 1, high);  
+        return i + 1;
+    }
+
+    static void Swap<T>(DynamicArray<T> arr, int i, int j) {
+        var temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    static void quicksort<T>(DynamicArray<T> arr, int low, int high, Func<T, IComparable> key) {
+        if (low < high) {
+            
+            int pi = Partition(arr, low, high, key);
+
+            quicksort(arr, low, pi - 1, key);
+            quicksort(arr, pi + 1, high, key);
+        }
+    }
+
+    public void Sort<T>(DynamicArray<T> arr , Func<T, IComparable> key) { 
+        quicksort(arr, 0, arr.Count - 1, key);
+    }
+}
+
