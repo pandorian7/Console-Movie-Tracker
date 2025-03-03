@@ -55,6 +55,31 @@ public class DynamicArray<T>
     }
 
 
+    public DynamicArray(BST<T> bst)
+{
+    if (bst == null)
+        throw new ArgumentNullException(nameof(bst));
+
+    size = 4;
+    Items = new T[size];
+    Count = 0;
+
+    // Helper function to traverse the BST in-order and add elements to the array
+    void InOrderTraversal(TreeNode<T>? node)
+    {
+        if (node == null)
+            return;
+
+        InOrderTraversal(node.Left);
+        AddLast(node.Key);
+        InOrderTraversal(node.Right);
+    }
+
+    // Start traversal from the root
+    InOrderTraversal(bst.Root);
+}
+
+
     private void Expand()
     {
         size *= 2;
