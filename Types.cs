@@ -92,8 +92,15 @@ class SortingStatus {
         TimeTaken = time;
     }
 
-    public override string ToString()
+    // public override string ToString()
+    // {
+    //     return $"SortingStatus(Algorithm={Algorithm}, ItemsSorted={ItemsSorted}, TimeTaken={TimeTaken})";
+    // }
+     public override string ToString()
     {
-        return $"SortingStatus(Algorithm={Algorithm}, ItemsSorted={ItemsSorted}, TimeTaken={TimeTaken})";
+        return  $"Sorting Status;\n" +
+                $"Algorithm used    : {Algorithm}\n" +
+                $"Total items sorted : {ItemsSorted}\n" +
+                $"Time taken         : {TimeTaken} ms\n";
     }
 }
