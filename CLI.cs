@@ -21,6 +21,7 @@ class CLI: CLIActions {
                 ShowResults();
                 return 0;
             case "?":
+            Tracker.CurrentPage = 0;
                 CheckNthArg(res, 1, "No title provided");
                 query = MergeFrom(res, 1);
                 FilterByTitle(AllMovies, query);
