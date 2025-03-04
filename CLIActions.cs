@@ -155,7 +155,7 @@ abstract class CLIActions {
 
     public void AddMovieToWatchedList(int resultId) {
         Tracker.UserData.WatchedList.Movies.Insert(Tracker.Res.At(resultId-1));
-        // Tracker.UserData.Save();
+        Tracker.UserData.Save();
     }
 
     
